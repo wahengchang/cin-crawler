@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node cManager",
+    "fetchCinDetail": "casperjs ./c/cin-detail/fetch.js",
+    "processCinDetail": "node ./c/cin-detail/cheerio",
     "fetchTitle": "casperjs ./c/fetchTitle.js",
     "report": "NODE_ENV=production node ./reportWeb/dist/server.js"
   },

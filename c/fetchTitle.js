@@ -1,4 +1,6 @@
 var links = [];
+var fileNameTimeStamp = require('../lib/utils').fileNameTimeStamp;
+var tempDataPath = require('../config.json').tempDataPath
 var casper = require('casper').create({
     pageSettings: {
         loadImages: false,//The script is much faster when this field is set to false
@@ -57,12 +59,9 @@ casper.then(function(){
     //     console.log(links[i].id, links[i].link, links[i].title);
     // }
 
-    var currentTime = new Date();
-    var month = currentTime.getMonth() + 1;
-    var day = currentTime.getDate();
-    var year = currentTime.getFullYear();
-    var defaultPath = "./temp/";
-    var myfile = defaultPath + "title-"+year + "-" + month + "-" + day+".json";
+    var defaultPath = tempDataPath;
+    var fileName = 'title-'+fileNameTimeStamp('json');
+    var myfile = defaultPath +'/'+ fileName;
     
     var fs = require('fs');
     fs.write(myfile, JSON.stringify(links), 'w');

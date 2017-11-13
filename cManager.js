@@ -1,13 +1,39 @@
+(async function() {
+    var pcMg = require('./lib/processManager');
+    var {readJson} = require('./lib/file');
+    var config = require('./config.json')
+    var {fileNameTimeStamp} = require('./lib/utils')
 
-var pcMg = require('./lib/processManager');
+    var TARGET_HOST = process.env.TARGET_HOST
+    var TITLE_URL = process.env.TITLE_URL
+    var MOVIE_LIST_URL = process.env.MOVIE_LIST_URL
+    
 
-var TARGET_HOST = process.env.TARGET_HOST
-var TITLE_URL = process.env.TITLE_URL
+    const {tempDataPath} = config
+    const fetchTitleFileName = 'title-'+fileNameTimeStamp('json');
+    const fetchTitlepath = tempDataPath + '/' + fetchTitleFileName
 
-var commandList = []
-commandList.push(`npm run fetchTitle -- --TARGET_HOST=${TARGET_HOST} --TITLE_URL=${TITLE_URL}`)
+    // commandList.push(`npm run fetchTitle -- --TARGET_HOST=${TARGET_HOST} --TITLE_URL=${TITLE_URL}`)
 
-pcMg.series(commandList , function(err){
-//    console.log('executed many commands in a row'); 
-    console.log('done')
-});
+    const fetchTitleCMD = `npm run fetchTitle -- --TARGET_HOST=${TARGET_HOST} --TITLE_URL=${TITLE_URL}`
+
+    await pcMg.execPromise(fetchTitleCMD)
+    const cinList = await readJson(fetchTitlepath)
+
+
+    for( let cin of cinList){
+
+        const {id} = cin
+        
+        const fetchCinDetail = `npm run fetchCinDetail -- --TARGET_HOST=${TARGET_HOST} --MOVIE_LIST_URL=${MOVIE_LIST_URL} --MOVIE_ID=${id}`
+        
+        await pcMg.execPromise(fetchCinDetail)
+                
+    }
+
+    // pcMg.series(commandList , function(err){
+    // //    console.log('executed many commands in a row'); 
+    //     console.log('done')
+    // });
+
+}());
