@@ -13,16 +13,14 @@ var casper = require('casper').create({
 });
 
 
-// var TARGET_HOST = casper.cli.get('TARGET_HOST')
-// var MOVIE_LIST_URL = casper.cli.get('MOVIE_LIST_URL')
-// var MOVIE_ID = casper.cli.get('MOVIE_ID')
+var TARGET_HOST = casper.cli.get('TARGET_HOST')
+var TITLE_URL = casper.cli.get('TITLE_URL')
 
-var TARGET_HOST = "https://tw.movies.yahoo.com"
-var MOVIE_LIST_URL = "/theater_result.html"
-var MOVIE_ID = 45
-var url = TARGET_HOST + MOVIE_LIST_URL + '/id=' + MOVIE_ID
+var url = TARGET_HOST + TITLE_URL
 var MVAuthorization = ''
 
+
+console.log('Going to process : ', url)
 // add this to the top of the script, to show debug log
 casper.on('remote.message', function(msg) {
     this.echo(JSON.stringify(msg));
@@ -34,35 +32,19 @@ function isAPI(url){
 }
 
 var resources = []; // a resource contains at least 'url', 'status'
-casper.on("resource.received", function(resource){
-    // if(isAPI(resource.url)) {
-    //     console.log(' resource.received .......')
-    //     console.log(JSON.stringify(resource))
-    // }
-});
+
 casper.on("resource.requested", function(resource){
-
     var headers = resource.headers
-
     if(isAPI(resource.url)) {
         for(var i=0; i<headers.length; i++){
             if(headers[i].name === 'MV-Authorization'){
-                console.log('MV-Authorization: ', headers[i].value)
-                MVAuthorization = (headers[i].value && headers[i].value!=='')?headers[i].value:MVAuthorization
+                MVAuthorization = (headers[i].value && headers[i].value!=='')?
+                                    headers[i].value:
+                                    MVAuthorization
             }
         }
     }
 });
-casper.on("resource.timeout", function(request){
-    console.log(' resource.timeout .......')
-});
-casper.on("resource.error", function(resourceError){
-    // console.log(' resource.error .......')
-    // resourceError.status = -2;
-    // resources.push(resourceError);
-});
-
-
 
 casper.start().thenOpen(url, function() {
     console.log("Browser is opened");
@@ -73,7 +55,7 @@ casper.then(function() {
     var data = JSON.stringify({MVAuthorization: MVAuthorization})
     var path = tempDataPath + '/s.json'
     fs.write(path, data, 'w');
-    console.log('s.json saved')
+    console.log(path, ' saved')
 })
 
 casper.run();
