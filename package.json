@@ -8,6 +8,8 @@
     "start": "node cManager",
     "preTitle": "casperjs ./c/fetchTitle/pre.js",
     "fetchTitle": "node ./c/fetchTitle/http",
+    "allMovie": "node ./c/allMovie/http",
+    "allChannel": "node ./c/allChannel/http",
     "report": "NODE_ENV=production node ./reportWeb/dist/server.js"
   },
   "keywords": [],

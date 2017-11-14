@@ -17,8 +17,13 @@
 
     const preTitle = `npm run preTitle -- --TARGET_HOST=${TARGET_HOST} --TITLE_URL=${TITLE_URL}`
     const fetchTitle = `npm run fetchTitle`
+    const allMovie = `npm run allMovie`
+    const allChannel = `npm run allChannel`
+    
     await pcMg.execPromise(preTitle)
     await pcMg.execPromise(fetchTitle)
+    await pcMg.execPromise(allMovie)
+    await pcMg.execPromise(allChannel)
     // const cinList = await readJson(fetchTitlepath)
 
 
