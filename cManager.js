@@ -24,18 +24,17 @@
     await pcMg.execPromise(fetchTitle)
     await pcMg.execPromise(allMovie)
     await pcMg.execPromise(allChannel)
-    // const cinList = await readJson(fetchTitlepath)
 
+    const threadIds = require('./temp/data/cin-list.json').map( itme => {return {id: itme.y_theater_id}})
 
-    // for( let cin of cinList){
+    for( let cin of threadIds){
+        const {id} = cin
+        const fetchThreaterHTML = `npm run fetchThreaterHTML -- --TARGET_HOST=${TARGET_HOST} --MOVIE_LIST_URL=${MOVIE_LIST_URL} --THREAD_ID=${id}`
+        await pcMg.execPromise(fetchThreaterHTML)
 
-    //     const {id} = cin
-        
-    //     const fetchCinDetail = `npm run fetchCinDetail -- --TARGET_HOST=${TARGET_HOST} --MOVIE_LIST_URL=${MOVIE_LIST_URL} --MOVIE_ID=${id}`
-        
-    //     await pcMg.execPromise(fetchCinDetail)
-                
-    // }
+        const processMovieTime = `npm run processMovieTime ${id} `
+        await pcMg.execPromise(processMovieTime)
+    }
 
     // pcMg.series(commandList , function(err){
     // //    console.log('executed many commands in a row'); 
