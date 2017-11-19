@@ -1,4 +1,5 @@
 var links = [];
+var colors = require('colors');
 var fileNameTimeStamp = require('../lib/utils').fileNameTimeStamp;
 var tempDataPath = require('../config.json').tempDataPath
 var casper = require('casper').create({
@@ -23,20 +24,20 @@ casper.on('remote.message', function(msg) {
 })
 
 casper.start().thenOpen(url, function() {
-    console.log("Browser is opened");
+    console.log(colors.green("Browser is opened"))
 });
 
 casper.waitForSelector('.release_info',
     function success() {
-        console.log("Going to download threader html ...");
+        console.log(colors.green("Going to download threader html ..."))
         var fs = require('fs');
         var html = this.getHTML();
         var path = tempDataPath + '/html/' + THREAD_ID +'.html'
         fs.write(path, html, 'w');
-        console.log('html saved')
+        console.log(colors.green('html saved'))
     },
     function fail() {
-        console.log("oops");
+        console.log(colors.green("oops"))
     },
     3000
 );

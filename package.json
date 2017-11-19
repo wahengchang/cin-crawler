@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node cManager",
     "preTitle": "casperjs ./c/fetchTitle/pre.js",
     "fetchTitle": "node ./c/fetchTitle/http",
     "allMovie": "node ./c/allMovie/http",
     "allChannel": "node ./c/allChannel/http",
+    "processMovieTime": "node ./c/allMovie/cheerio",
+    "fetchThreaterHTML": "casperjs ./c/allMovie/fetchThreaterHTML.js",
     "report": "NODE_ENV=production node ./reportWeb/dist/server.js"
   },
   "keywords": [],
@@ -31,6 +33,7 @@
     "cheerio": "^1.0.0-rc.2",
     "es6-promise": "^4.1.1",
     "express": "^4.15.3",
+    "jest": "^21.2.1",
     "request": "^2.83.0",
     "utf8": "^2.1.2"
   }

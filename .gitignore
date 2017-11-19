@@ -16,3 +16,4 @@ env.sh
 title*.json
 *.html
 *s.json
+temp/*/*.json

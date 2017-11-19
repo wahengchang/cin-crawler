@@ -1,4 +1,5 @@
 var links = [];
+var colors = require('colors');
 var fileNameTimeStamp = require('../lib/utils').fileNameTimeStamp;
 var tempDataPath = require('../config.json').tempDataPath
 var casper = require('casper').create({
@@ -65,7 +66,7 @@ casper.on("resource.error", function(resourceError){
 
 
 casper.start().thenOpen(url, function() {
-    console.log("Browser is opened");
+    console.log(colors.green("Browser is opened"))
 });
 
 casper.then(function() {
@@ -73,7 +74,7 @@ casper.then(function() {
     var data = JSON.stringify({MVAuthorization: MVAuthorization})
     var path = tempDataPath + '/s.json'
     fs.write(path, data, 'w');
-    console.log('s.json saved')
+    console.log(colors.green('s.json saved'))
 })
 
 casper.run();

@@ -1,6 +1,7 @@
 var links = [];
 var fileNameTimeStamp = require('../lib/utils').fileNameTimeStamp;
 var tempDataPath = require('../config.json').tempDataPath
+var colors = require('colors');
 var casper = require('casper').create({
     pageSettings: {
         loadImages: false,//The script is much faster when this field is set to false
@@ -20,7 +21,7 @@ var url = TARGET_HOST + TITLE_URL
 var MVAuthorization = ''
 
 
-console.log('Going to process : ', url)
+console.log(colors.green('Going to process : ', url))
 // add this to the top of the script, to show debug log
 casper.on('remote.message', function(msg) {
     this.echo(JSON.stringify(msg));
@@ -47,7 +48,7 @@ casper.on("resource.requested", function(resource){
 });
 
 casper.start().thenOpen(url, function() {
-    console.log("Browser is opened");
+    console.log(colors.green("Browser is opened"));
 });
 
 casper.then(function() {
@@ -55,7 +56,7 @@ casper.then(function() {
     var data = JSON.stringify({MVAuthorization: MVAuthorization})
     var path = tempDataPath + '/s.json'
     fs.write(path, data, 'w');
-    console.log(path, ' saved')
+    console.log(colors.green(path, ' saved'))
 })
 
 casper.run();

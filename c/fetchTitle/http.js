@@ -21,7 +21,7 @@ var options = {
 request(options, function (error, response, body) {    
     if (!error && response.statusCode === 200) {
         body = JSON.stringify(JSON.parse(body))
-        var path = tempDataPath + '/data/cin-list.json'
+        var path = tempDataPath + '/data/all-cin.json'
 
         writeFile(path, body)
         .then( console.log(path + ' is saved ...'))
