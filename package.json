@@ -12,6 +12,7 @@
     "allChannel": "node ./c/allChannel/http",
     "processMovieTime": "node ./c/allMovie/cheerio",
     "fetchThreaterHTML": "casperjs ./c/allMovie/fetchThreaterHTML.js",
+    "processDB": "node ./databaseRobot",
     "report": "NODE_ENV=production node ./reportWeb/dist/server.js"
   },
   "keywords": [],
