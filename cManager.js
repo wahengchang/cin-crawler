@@ -41,11 +41,12 @@
         await pcMg.execPromise(processMovieTime)
     }
 
+    const processDB =  `npm run processDB`
+    await pcMg.execPromise(processDB)
+    
     await deleteFileByFolder(tempDataPath, ['.json', '.html'])
     await deleteFileByFolder(`${tempDataPath}/data`, ['.json', '.html'])
     await deleteFileByFolder(`${tempDataPath}/html`, ['.json', '.html'])
-    await deleteFileByFolder(`${tempDataPath}/_html`, ['.json', '.html'])
-
 
     /*_*_*_*_ Performance Finished _*_*_*/
     var new_time = new Date();

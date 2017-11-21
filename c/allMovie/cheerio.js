@@ -4,6 +4,7 @@
     var tempDataPath = require('../../config.json').tempDataPath    
     var {readFile, writeFile} = require('../../lib/file')
     var {extractIdByHref, removeUnnessString} = require('../../lib/string')
+    const filePath = `${tempDataPath}/data/all-time.json`    
     
     const THREAD_ID = process.argv[2]
 
@@ -38,7 +39,9 @@
         })
     });
 
-    const filePath = `${tempDataPath}/data/threader${THREAD_ID}-movie-time.json`    
-    await writeFile(filePath, JSON.stringify(movieData))
+    let buf = await readFile(filePath)
+    buf = JSON.parse(buf)
+    buf = buf.concat(movieData);
+    await writeFile(filePath, JSON.stringify(buf))
     console.log(colors.green(`${b.length} movies are saved to ${filePath} ...`))
 }());
