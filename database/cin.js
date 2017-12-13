@@ -11,6 +11,7 @@ var cinObject = new Schema({
   id: { type: String, required: true },
   alias: { type: String, required: true },
   location: { type: String, required: true },
+  geo: { type: Array, default: [-1,-1] },  
   createdAt: { type: Date, default: Date.now },
 })
 

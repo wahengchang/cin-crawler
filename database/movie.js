@@ -7,7 +7,7 @@ const Abstract = require('./abstract')
 var movieObject = new Schema({
     id: { type: String, required: true },
     titleCh: { type: String, required: true },
-    titleEn: { type: String, required: true },
+    titleEn: { type: String },
     duration: { type: Number, default: -1 },
     grade: { type: Number, required: true },
     classified: { type: String, required: true },

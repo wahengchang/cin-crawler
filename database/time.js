@@ -7,8 +7,9 @@ const Abstract = require('./abstract')
 var timeObject = new Schema({
   cinId: { type: String, required: true },
   movieId: { type: String, required: true },
-  timeList: { type: Array, required: true },
-  timeStrList: { type: Array, required: true },
+  time: { type: Number, required: true },
+  timeDate: { type: Date, required: true },
+  timeStr: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 })
 

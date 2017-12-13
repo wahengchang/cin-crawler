@@ -76,20 +76,22 @@ class Abstract {
         })
     }
 
-    updateById(id, payload) {
+    updateByCondidtion(condidtion, payload) {
         return new Promise((resolve, reject) => {
             const _mongoose = global.DBInstance
             const Intance = _mongoose.model(this.modelName, this.schemaObject)
 
-            Intance.findOneAndUpdate({
-                _id: id
-            }, payload, function (err, vObj) {
+            Intance.findOneAndUpdate(condidtion, payload, function (err, vObj) {
                 if (err) 
                     reject(err)
                 resolve(vObj)
             });
 
         })
+    }
+
+    updateById(id, payload) {
+        return this.updateByCondidtion({_id: id}, payload)
     }
 
     count(payload) {
